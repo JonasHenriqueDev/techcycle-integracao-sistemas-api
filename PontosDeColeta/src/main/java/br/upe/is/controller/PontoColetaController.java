@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/pontos-coleta")
 public class PontoColetaController {
 
     @Autowired
