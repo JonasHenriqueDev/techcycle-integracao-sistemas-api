@@ -16,6 +16,9 @@ public class PontoColetaService {
     @Autowired
     private PontoColetaRepository pontoColetaRepository;
 
+    @Autowired
+    private NotificationProducer notificationProducer;
+
     public List<PontoColeta> findAll() {
         return pontoColetaRepository.findAll();
     }
@@ -25,6 +28,7 @@ public class PontoColetaService {
     }
 
     public PontoColeta save(PontoColeta pontoColeta) {
+        notificationProducer.notifyNewCollectionPoint("Novo ponto de coleta adicionado!!!" + pontoColeta.toString());
         return pontoColetaRepository.save(pontoColeta);
     }
 
