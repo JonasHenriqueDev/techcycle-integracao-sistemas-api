@@ -21,6 +21,9 @@ public class AnuncioService {
     @Autowired
     private AnuncioRepository anuncioRepository;
 
+    @Autowired
+    private NotificationProducer notificationProducer;
+
     @Value("${app.upload.dir}") // Configuração do diretório de upload definido no application.properties
     private String uploadDir;
 
@@ -37,7 +40,9 @@ public class AnuncioService {
     }
 
     public Anuncio adicionarAnuncio(Anuncio anuncio) {
-        return anuncioRepository.save(anuncio);
+        Anuncio savedAnuncio = anuncioRepository.save(anuncio);
+        notificationProducer.notifyNewCollectionPoint(savedAnuncio);
+        return savedAnuncio;
     }
 
     public void adicionarImagens(Long anuncioId, List<MultipartFile> files) throws IOException {

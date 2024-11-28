@@ -28,8 +28,9 @@ public class PontoColetaService {
     }
 
     public PontoColeta save(PontoColeta pontoColeta) {
-        notificationProducer.notifyNewCollectionPoint("Novo ponto de coleta adicionado!!!" + pontoColeta.toString());
-        return pontoColetaRepository.save(pontoColeta);
+        PontoColeta savedPontoColeta = pontoColetaRepository.save(pontoColeta);
+        notificationProducer.notifyNewCollectionPoint(savedPontoColeta);
+        return savedPontoColeta;
     }
 
     public void deleteById(Long id) {
