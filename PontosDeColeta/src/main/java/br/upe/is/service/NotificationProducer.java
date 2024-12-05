@@ -1,5 +1,6 @@
 package br.upe.is.service;
 
+import br.upe.is.domain.Item;
 import br.upe.is.domain.PontoColeta;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,14 @@ public class NotificationProducer {
                         + ", Nome: " + pontoColeta.getNome()
                         + ", Latitude: " + pontoColeta.getLatitude()
                         + ", Longitude: " + pontoColeta.getLongitude());
+    }
+
+    public void notifyNewItemReceived(Item item) {
+        kafkaTemplate.send(topicName,
+                "Novo item recebido em um ponto de coleta: "
+                        + "Id: " + item.getId()
+                        + ", Nome: " + item.getNome()
+                        + ", Tipo: " + item.getTipo()
+                        + ", Ponto de coleta: " + item.getPontoColeta().getNome());
     }
 }

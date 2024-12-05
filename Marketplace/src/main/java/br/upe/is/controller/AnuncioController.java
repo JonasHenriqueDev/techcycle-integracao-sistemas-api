@@ -44,13 +44,29 @@ public class AnuncioController {
         return ResponseEntity.ok(novoAnuncio);
     }
 
-    @PostMapping("/{anuncioId}/imagens")
-    public ResponseEntity<String> adicionarImagens(@PathVariable Long anuncioId, @RequestParam("files") List<MultipartFile> files) {
-        try {
-            anuncioService.adicionarImagens(anuncioId, files);
-            return ResponseEntity.ok("Imagens adicionadas com sucesso.");
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao adicionar imagens: " + e.getMessage());
+//    @PostMapping("/{anuncioId}/imagens")
+//    public ResponseEntity<String> adicionarImagens(@PathVariable Long anuncioId, @RequestParam("files") List<MultipartFile> files) {
+//        try {
+//            anuncioService.adicionarImagens(anuncioId, files);
+//            return ResponseEntity.ok("Imagens adicionadas com sucesso.");
+//        } catch (IOException e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao adicionar imagens: " + e.getMessage());
+//        }
+//    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Anuncio> updateAnuncio(@PathVariable Long id, @RequestBody Anuncio anuncioDetails) {
+        Optional<Anuncio> anuncio = anuncioService.listarPorId(id);
+
+        if (anuncio.isPresent()) {
+            Anuncio updatedAnuncio = anuncio.get();
+            updatedAnuncio.setTitulo(anuncioDetails.getTitulo());
+            updatedAnuncio.setDescricao(anuncioDetails.getDescricao());
+            updatedAnuncio.setPreco(anuncioDetails.getPreco());
+            anuncioService.adicionarAnuncio(updatedAnuncio);
+            return ResponseEntity.ok(updatedAnuncio);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 
