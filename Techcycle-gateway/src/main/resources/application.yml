@@ -7,22 +7,21 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
-      routes:
-        - id: pontosdecoleta
-          uri: lb://PontosDeColeta
-          predicates:
-            - Path=/pontoscoleta/**
-
-        - id: marketplace
-          uri: lb://Marketplace
-          predicates:
-            - Path=/marketplace/**
-
-        - id: notificacao
-          uri: lb://Notificacao
-          predicates:
-            - Path=/notificacao/**
-
+#      routes:
+#        - id: pontosdecoleta
+#          uri: lb://PontosDeColeta
+#          predicates:
+#            - Path=/pontoscoleta/**
+#
+#        - id: marketplace
+#          uri: lb://Marketplace
+#          predicates:
+#            - Path=/marketplace/**
+#
+#        - id: notificacao
+#          uri: lb://Notificacao
+#          predicates:
+#            - Path=/notificacao/**
 eureka:
   client:
     serviceUrl:
